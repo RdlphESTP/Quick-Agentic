@@ -1,0 +1,13 @@
+{
+  "nodes": [
+    {"id": "prompt", "type": "input"},
+    {"id": "llm", "type": "llm"},
+    {"id": "answer", "type": "output"}
+  ],
+  "edges": [
+    {"source": "START", "target": "prompt"},
+    {"source": "prompt", "target": "llm"},
+    {"source": "llm", "target": "answer"},
+    {"source": "answer", "target": "END"}
+  ]
+}
