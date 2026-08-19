@@ -1,7 +1,7 @@
 ## Clone repo
 
 ```
-git clone https://github.com/RdlphESTP/quick_agentic.git
+git clone https://github.com/RdlphESTP/Quick_Agentic.git
 ```
 
 ## Build environment with **uv**
