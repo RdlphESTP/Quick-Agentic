@@ -37,6 +37,6 @@ def generate_code(graph: dict) -> str:
         target = edge["target"] if edge["target"] == "END" else f"'{edge['target']}'"
         commands.append(f"graph.add_edge({source}, {target})")
 
-    commands.append("\ngraph = graph.compile()\n")
+    commands.append("\nagent_graph = graph.compile()\n")
 
     return "\n".join(imports) + "\n\n" + "\n".join(commands)
