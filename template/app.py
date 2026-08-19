@@ -79,34 +79,35 @@ async def main(prompt: cl.Message):
     llm_msg = cl.Message(content="")
     await llm_msg.send()
 
-    async for chunk in client.runs.stream(
-        thread_id,
-        ASSISTANT_ID,
-        input={
-            "messages": [
-                {
-                    "role": "user",
-                    "content": prompt.content,
-                }
-            ]
-        },
-        stream_mode=[
-            "messages-tuple",
-            "updates",
-        ],
-    ):
-        if chunk.event == "messages":
-            message_chunk, _ = chunk.data
+    async with cl.Step(name="Thinking", type="run") as step:
+        step.icon = "hourglass"
+        await step.update()
 
-            content = message_chunk.get("content")
+        async for chunk in client.runs.stream(
+            thread_id,
+            ASSISTANT_ID,
+            input={"messages": [{"role": "user", "content": prompt.content}]},
+            stream_mode=["messages-tuple", "custom"],
+        ):
+            if chunk.event == "messages":
+                message_chunk, _ = chunk.data
 
-            if content:
-                await llm_msg.stream_token(content)
+                content = message_chunk.get("content")
 
-        elif chunk.event == "updates":
-            print(chunk.data)
+                if content:
+                    await llm_msg.stream_token(content)
+
+            elif chunk.event == "custom":
+                print(chunk.event, chunk.data)
+                data = chunk.data
+
+                step.name = data["name"]
+                step.icon = data["icon"]
+
+                await step.update()
 
     await llm_msg.update()
+    await step.remove()
 
 
 # ////////////////////////////////////// EXIT \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
