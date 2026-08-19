@@ -4,13 +4,13 @@
 uv sync
 ```
 
-# Launch the **langgraph** server
+## Launch the **langgraph** server
 
 ```powershell
 langgraph dev
 ```
 
-# Launch the **Agent**
+## Launch the **Agent**
 
 ```powershell
 uv run chainlit run app.py

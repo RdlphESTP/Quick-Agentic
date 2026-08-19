@@ -10,4 +10,4 @@ git clone https://github.com/RdlphESTP/quick_agentic.git
 uv sync
 ```
 
-# Check template/README.md for more informations
+## Check template/README.md for more informations
