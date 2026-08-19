@@ -1,0 +1,11 @@
+/* TODO: Change Color to fit Theme and make logo and icons.*/
+
+:root {
+  --primary: 0 0% 100% !important;
+  --primary-foreground: 0 0% 100% !important;
+  --ring: 0 0% 100% !important;
+}
+
+#side-view-content > .flex-grow {
+  flex-grow: 0 !important;
+}

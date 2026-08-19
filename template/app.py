@@ -10,7 +10,7 @@ logger = logging.getLogger(__name__)
 
 client = get_client(url="http://localhost:2024")
 
-ASSISTANT_ID = "agent"
+GRAPH_ID = "agent"  # NOTE: This is the name of the graph defined in langgraph.json.
 
 
 # ////////////////////////////////// SESSION START \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
@@ -79,13 +79,13 @@ async def main(prompt: cl.Message):
     llm_msg = cl.Message(content="")
     await llm_msg.send()
 
-    async with cl.Step(name="Thinking", type="run") as step:
+    async with cl.Step(name="Thinking") as step:
         step.icon = "hourglass"
         await step.update()
 
         async for chunk in client.runs.stream(
             thread_id,
-            ASSISTANT_ID,
+            GRAPH_ID,
             input={"messages": [{"role": "user", "content": prompt.content}]},
             stream_mode=["messages-tuple", "custom"],
         ):
@@ -98,7 +98,6 @@ async def main(prompt: cl.Message):
                     await llm_msg.stream_token(content)
 
             elif chunk.event == "custom":
-                print(chunk.event, chunk.data)
                 data = chunk.data
 
                 step.name = data["name"]

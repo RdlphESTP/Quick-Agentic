@@ -28,8 +28,6 @@ def fake_llm(state: MessagesState):
         "It is used to test the functionality of the graph, "
         "the streaming of tokens and the display in Chainlit."
     )
-
-    # Simulation de génération token par token
     return {"messages": [AIMessage(content=response)]}
 
 
