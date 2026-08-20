@@ -22,13 +22,38 @@ def generate_code(graph: dict) -> str:
             ]
         }
     """
-    imports = ["from langgraph.graph import END, START, MessagesState, StateGraph"]
-    commands = ["graph = StateGraph(MessagesState)\n"]
+    imports = [
+        "from langchain_core.messages import AIMessage",
+        "from langgraph.config import get_stream_writer",
+        "from langgraph.graph import END, START, MessagesState, StateGraph",
+    ]
+    commands = [
+        """
+def update_step(name: str, icon: str):
+    writer = get_stream_writer()
+
+    writer(
+        {
+            "name": name,
+            "icon": icon,
+        }
+    )
+
+
+def with_step(func, name: str, icon: str):
+    def wrapper(state):
+        update_step(name, icon)
+        return func(state)
+
+    return wrapper\n""",
+        "graph = StateGraph(MessagesState)\n",
+    ]
 
     for node in graph["nodes"]:
         node_id = node["id"]
         imports.append(f"from nodes.{node_id} import {node_id}")
         commands.append(f"graph.add_node('{node_id}', {node_id})")
+        # TODO: add Step parameters in the JSON and pass them here.
 
     commands.append("")
 
