@@ -1,3 +1,4 @@
+# TODO: Add the src codes to be used as modules.
 # TODO: Replace with the generated graph.py. Need to change path in langgraph.json
 
 from langchain_core.messages import AIMessage
@@ -16,13 +17,16 @@ def update_step(name: str, icon: str):
     )
 
 
+def with_step(func, name: str, icon: str):
+    def wrapper(state):
+        update_step(name, icon)
+        return func(state)
+
+    return wrapper
+
+
 # LangGraph
 def fake_llm(state: MessagesState):
-    update_step(
-        "Writing...",
-        "pencil-line",
-    )
-
     response = (
         "This is a fake LLM response. "
         "It is used to test the functionality of the graph, "
@@ -33,7 +37,7 @@ def fake_llm(state: MessagesState):
 
 graph = StateGraph(MessagesState)
 
-graph.add_node("fake", fake_llm)
+graph.add_node("fake", with_step(fake_llm, "Writing...", "pencil-line"))
 
 graph.add_edge(START, "fake")
 graph.add_edge("fake", END)

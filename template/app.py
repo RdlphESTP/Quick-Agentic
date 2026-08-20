@@ -12,6 +12,8 @@ client = get_client(url="http://localhost:2024")
 
 GRAPH_ID = "agent"  # NOTE: This is the name of the graph defined in langgraph.json.
 
+logger.info("#################### APP LAUNCHED ####################")
+
 
 # ////////////////////////////////// SESSION START \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
 @cl.on_chat_start
