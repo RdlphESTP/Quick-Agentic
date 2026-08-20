@@ -1,11 +1,41 @@
-/* TODO: Change Color to fit Theme and make logo and icons.*/
-
+/* Light Mode Color Theme */
 :root {
-  --primary: 0 0% 100% !important;
+  --primary: 0 0% 10% !important;
   --primary-foreground: 0 0% 100% !important;
-  --ring: 0 0% 100% !important;
+  --ring: 0 0% 10% !important;
 }
 
+header {
+  background-color: #111111 !important;
+}
+
+.bg-primary {
+  background-color: #111111 !important;
+}
+
+/* Dark Mode Color Theme */
+.dark {
+  --primary: 0 0% 90% !important;
+  --primary-foreground: 0 0% 10% !important;
+  --ring: 0 0% 90% !important;
+}
+
+.dark header {
+  background-color: #eeeeee !important;
+}
+
+.dark .bg-primary {
+  background-color: #eeeeee !important;
+}
+
+/* Side Panel */
 #side-view-content > .flex-grow {
   flex-grow: 0 !important;
+}
+
+/* Start Page Logo */
+img.logo {
+  width: 400px !important;
+  height: auto !important;
+  max-width: none !important;
 }
