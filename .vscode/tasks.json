@@ -17,7 +17,7 @@
     {
       "label": "Chainlit",
       "type": "shell",
-      "command": "uv run chainlit run app.py --watch",
+      "command": "uv run chainlit run app.py",
       "options": {
         "cwd": "${workspaceFolder}/template"
       },

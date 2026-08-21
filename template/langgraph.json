@@ -1,6 +1,6 @@
 {
   "dependencies": ["."],
   "graphs": {
-    "agent": "./src/template/placeholder.py:agent_graph"
+    "agent": "./src/template/graph.py:agent_graph"
   }
 }

@@ -1,7 +1,7 @@
 <picture>
-  <source media="(prefers-color-scheme: dark)" srcset="template/public/logo_dark.svg">
-  <source media="(prefers-color-scheme: light)" srcset="template/public/logo_light.svg">
-  <img alt="Quick-Agentic Logo" src="template/public/logo_light.svg">
+  <source media="(prefers-color-scheme: dark)" srcset="public/logo_dark.svg">
+  <source media="(prefers-color-scheme: light)" srcset="public/logo_light.svg">
+  <img alt="Quick-Agentic Logo" src="public/logo_light.svg">
 </picture>
 
 ## Build environment with _uv_

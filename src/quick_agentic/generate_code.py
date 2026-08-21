@@ -1,6 +1,6 @@
 def generate_code(graph: dict) -> str:
     """
-    Generate the Python script for creating a langgraph based on the provided graph.
+    Generate the Python script for creating a langgraph based on the provided user_graph.
 
     Args:
         graph (dict): The JSON graph to be converted.
@@ -22,8 +22,9 @@ def generate_code(graph: dict) -> str:
             ]
         }
     """
+
+    # ========== Initial setup ==========
     imports = [
-        "from langchain_core.messages import AIMessage",
         "from langgraph.config import get_stream_writer",
         "from langgraph.graph import END, START, MessagesState, StateGraph",
     ]
@@ -45,18 +46,31 @@ def with_step(func, name: str, icon: str):
         update_step(name, icon)
         return func(state)
 
-    return wrapper\n""",
+    return wrapper\n\n""",
         "graph = StateGraph(MessagesState)\n",
     ]
 
+    # ========== Populate the nodes ==========
     for node in graph["nodes"]:
         node_id = node["id"]
-        imports.append(f"from nodes.{node_id} import {node_id}")
-        commands.append(f"graph.add_node('{node_id}', {node_id})")
-        # TODO: add Step parameters in the JSON and pass them here.
+
+        # Add the imports for the node
+        imports.append(f"from template.nodes.{node_id} import {node_id}")
+
+        # Add the nodes to the graph accounting for the step name and icon if they exist
+        name = node.get("step")
+        icon = node.get("icon")
+
+        if name and icon:
+            commands.append(
+                f"graph.add_node('{node_id}', with_step({node_id}, '{name}', '{icon}'))"
+            )
+        else:
+            commands.append(f"graph.add_node('{node_id}', {node_id})")
 
     commands.append("")
 
+    # ========== Populate the edges ==========
     for edge in graph["edges"]:
         source = edge["source"] if edge["source"] == "START" else f"'{edge['source']}'"
         target = edge["target"] if edge["target"] == "END" else f"'{edge['target']}'"

@@ -6,6 +6,8 @@
 
 ### Kickstart your next agentic project with **_Quick-Agentic_**
 
+This project is designed to be used with _uv_.
+
 ## Clone repo
 
 ```

@@ -1,13 +1,7 @@
 {
-  "nodes": [
-    {"id": "prompt", "type": "input"},
-    {"id": "llm", "type": "llm"},
-    {"id": "answer", "type": "output"}
-  ],
+  "nodes": [{ "id": "fake_llm", "step": "Writing...", "icon": "pencil-line" }],
   "edges": [
-    {"source": "START", "target": "prompt"},
-    {"source": "prompt", "target": "llm"},
-    {"source": "llm", "target": "answer"},
-    {"source": "answer", "target": "END"}
+    { "source": "START", "target": "fake_llm" },
+    { "source": "fake_llm", "target": "END" }
   ]
 }
